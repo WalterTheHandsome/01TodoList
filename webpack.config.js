@@ -1,4 +1,5 @@
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require("html-webpack-plugin")
+let path = require('path')
 module.exports = {
   module: {
     rules: [
@@ -28,5 +29,10 @@ module.exports = {
       template: "src/index.html",
       filename: "./index.html"
     })
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    port: 9000
+  }
 };
