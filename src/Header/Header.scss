@@ -1,0 +1,21 @@
+@import "../scss/_main.scss";
+
+.header {
+  background-color: $blue;
+  padding-left: 0;
+  padding-right: 0;
+  height: 76px;
+
+  & button {
+    color: $blue_deep;
+    background-color: transparent;
+    height: 73px;
+    border: $blue;
+    border-bottom-width: 3px;
+
+    &:active, &:focus {
+      color: $base_white;
+      border-bottom: 3px solid $blue_deep
+    }
+  }
+}
