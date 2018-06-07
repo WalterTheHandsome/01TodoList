@@ -15,7 +15,8 @@
 
     &:active, &:focus {
       color: $base_white;
-      border-bottom: 3px solid $blue_deep
+      border-bottom: 3px solid $blue_deep;
+      outline: none;
     }
   }
 }
