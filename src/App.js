@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './scss/_main.scss'
+import './App.scss'
 import Header from './Header/Header.js'
 import MainSection from './MainSection/MainSection.js'
 // name: 0-8-4
@@ -7,7 +7,7 @@ import MainSection from './MainSection/MainSection.js'
 class App extends Component {
   render() {
     return (
-      <div >
+      <div className="app">
         <Header></Header>
         <MainSection></MainSection>
       </div>

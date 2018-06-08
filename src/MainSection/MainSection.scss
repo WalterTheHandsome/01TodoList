@@ -1,6 +1,8 @@
 @import "../scss/_main.scss";
 .main_section {
-  width: 100%;
+  width: $max_width;
   height: 100vh;
-  background-color: $rice_white;
+  outline: 1px solid #f00;
+  margin-left: auto;
+  margin-right: auto;
 }

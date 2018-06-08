@@ -5,7 +5,7 @@ class Header extends Component {
   render () {
     return (
       <header className="container-fluid header">
-        <div className="container">
+        <div className="header_inner">
           <button className="col-4 title">
           My Tasks
           </button>
