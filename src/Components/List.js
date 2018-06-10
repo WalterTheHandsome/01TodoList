@@ -49,39 +49,39 @@ class List extends Component {
   } // end of constructor
 
   render () {
-    if (this.state.isAdd) {
-      return(
-        <div className={'task ' + this.state.status}>
-          <div className="add_task status" onClick={this.addShow}></div>
-          <div className="edit_section">
-
-          </div>
-        </div>
-      )
-    } else {
+    // if (this.state.isAdd) {
+    //   return(
+    //     <div className={'task ' + this.state.status}>
+    //       <div className="add_task status" onClick={this.addShow}></div>
+    //       <div className="edit_section">
+    //
+    //       </div>
+    //     </div>
+    //   )
+    // } else {
       return (
         <div className={'task ' + this.state.status}>
-            <div className="preview_task">
-              <div className="fa_checkbox">
-                <input
-                type="checkbox"
-                id={this.state.id}
-                />
-                <label htmlFor={this.state.id} onClick={this.handlCheckBoxClicked}></label>
-              </div>
-              <div className="title">
-                <span>{this.state.title}</span>
-                <i className="fas fa-pencil-alt"></i>
-                <i className="fas fa-star"></i>
-                <i className="far fa-star"></i>
-              </div>
+          <div className="add_task status" onClick={this.addShow}></div>
+          <div className="preview_task">
+            <div className="fa_checkbox">
+              <input type="checkbox" id={this.state.id}/>
+              <label htmlFor={this.state.id} onClick={this.handlCheckBoxClicked}></label>
             </div>
+            <div className="title">
+              <span>{this.state.title}</span>
+
+            </div>
+            <div className="function_group">
+              <i className="fas fa-pencil-alt "></i>
+              <i className="fas fa-star star"></i>
+              <i className="far fa-star star"></i>
+            </div>
+          </div>
           <div className="edit_section">
 
           </div>
         </div>
       )
-    }
   }
 }
 
