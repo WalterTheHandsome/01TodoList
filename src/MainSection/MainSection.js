@@ -29,11 +29,16 @@ class MainSection extends Component {
         return <Task key={idx} idx={idx} task={task} updateHandler={this.updateHandler.bind(this)}/>
       })
     }
-
+    // Ref: https://jsfiddle.net/ybeaz/njLx57u4/
     let updateHandler = this.updateHandler.bind(this)
   }
 
   updateHandler(idx, data) {
+
+    // For debug
+    // Issue #1, can't update the task
+    // Issue #2, While add task, time is wrong
+
     console.log('updateHandler in MainSection ' + idx, data )
     console.log('this is', this)
     let newData = this.state.rawData
