@@ -1,7 +1,35 @@
 @import "../scss/_main.scss";
-.add_task {
-  background-color: $base_white;
-  width: 620px;
-  height: 65px;
-  margin-top: 24px;
+.task {
+  // add task
+  .add_task {
+    margin-bottom: 3px;
+    background-color: $base_white;
+    width: $max_width;
+    height: 65px;
+    margin-top: 24px;
+    position: relative;
+    cursor: pointer;
+
+    &:after {
+      content: "＋ Add Task";
+      position: absolute;
+      top: 19px;
+      left: 42px;
+      display: block;
+      line-height: 24px;
+    }
+  }
+  // preview task
+  .preview_task {
+    width: $max_width;
+    height: 102px;
+    background-color: $rice_white;
+  }
+}
+
+.task.add_new_task {
+  .add_task {
+    display: none;
+  }
+
 }
