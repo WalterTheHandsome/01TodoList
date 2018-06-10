@@ -38,6 +38,14 @@ class List extends Component {
         })
       }
     }
+
+    this.showEdit = () => {
+      if (this.state.status === STATE_TASK) {
+        this.setState({
+          status: STATE_EDIT_TASK
+        })
+      }
+    }
   } // end of constructor
 
   render () {
@@ -61,7 +69,12 @@ class List extends Component {
                 />
                 <label htmlFor={this.state.id} onClick={this.handlCheckBoxClicked}></label>
               </div>
-              <span className="title">{this.state.title}</span>
+              <div className="title">
+                <span>{this.state.title}</span>
+                <i className="fas fa-pencil-alt"></i>
+                <i className="fas fa-star"></i>
+                <i className="far fa-star"></i>
+              </div>
             </div>
           <div className="edit_section">
 
