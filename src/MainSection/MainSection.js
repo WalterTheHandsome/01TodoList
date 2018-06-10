@@ -15,6 +15,7 @@ class MainSection extends Component {
   render () {
     return (
       <div className="main_section">
+        <List key="-1" isAdd="true"></List>
         {listItem}
       </div>
     )

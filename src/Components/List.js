@@ -11,10 +11,11 @@ class List extends Component {
     this.state = {
       id: "add_chk" + props.idx,
       checked: false,
-      status: STATE_NEW_TASK,
+      status: props.isAdd? STATE_NEW_TASK : STATE_TASK,
       important: false,
       title: props.title,
-      comment: props.comment
+      comment: props.comment,
+      isAdd: props.isAdd
     }
 
     this.handlCheckBoxClicked = () => {
@@ -40,24 +41,34 @@ class List extends Component {
   } // end of constructor
 
   render () {
-    return (
-      <div className={'task ' + this.state.status}>
-        <div className="add_task status" onClick={this.addShow}></div>
-        <div className="preview_task">
-          <div className="fa_checkbox">
-            <input
-             type="checkbox"
-             id={this.state.id}
-             />
-             <label htmlFor={this.state.id} onClick={this.handlCheckBoxClicked}></label>
-          </div>
-          <span>{this.state.title}</span>
-        </div>
-        <div className="edit_section">
+    if (this.state.isAdd) {
+      return(
+        <div className={'task ' + this.state.status}>
+          <div className="add_task status" onClick={this.addShow}></div>
+          <div className="edit_section">
 
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div className={'task ' + this.state.status}>
+            <div className="preview_task">
+              <div className="fa_checkbox">
+                <input
+                type="checkbox"
+                id={this.state.id}
+                />
+                <label htmlFor={this.state.id} onClick={this.handlCheckBoxClicked}></label>
+              </div>
+              <span className="title">{this.state.title}</span>
+            </div>
+          <div className="edit_section">
+
+          </div>
+        </div>
+      )
+    }
   }
 }
 
