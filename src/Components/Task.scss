@@ -1,0 +1,208 @@
+@import "../scss/_main.scss";
+.task {
+  // add task
+  // outline: 1px solid #f00;
+  background-color: $grey_light;
+  border-radius: 5px;
+  margin-bottom: $row_space;
+
+
+  .add_task {
+    background-color: $base_white;
+    width: $max_width;
+    height: 65px;
+    border-bottom: 2px solid $grey;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &:after {
+      content: "＋ Add Task";
+      position: absolute;
+      top: 19px;
+      left: 42px;
+      display: block;
+      line-height: 24px;
+    }
+  }
+  // preview task
+  .preview_task {
+    width: $max_width;
+    height: 76px;
+    background-color: $grey_light;
+    padding-top: $row_space;
+    padding-bottom: $row_space;
+    padding-left: $left_space;
+    transition: height .3s;
+
+    & > div:not(.list_state_group){
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .list_state_group {
+      margin-top: -15px;
+      color: $grey_deep;
+    }
+
+    .list_state_group > div {
+      display: inline-block;
+      margin-right: 12px;;
+      font-family: Roboto-Regular;
+
+      > i {
+        margin-right: 5px;
+      }
+    }
+
+    .fa_checkbox {
+      width: auto;
+      height: 100%;
+      margin-right: 16px;
+    }
+
+    .title {
+      span {
+        width: 248px;
+        line-height: 28px;
+        display: inline-block;
+        height: 28px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+    .function_group {
+      font-size: 24px;
+      line-height: 24px;
+      float: right;
+      margin-right: 32px;
+
+      // edit task buton
+      .edit_button { cursor: pointer; }
+      .far.star,
+      .fas.star {
+        margin-right: 32px;
+      }
+      .fas.star {
+        color: $orange;
+      }
+    }
+
+    &.important {
+      background-color: $rice_white;
+    }
+
+  }
+
+  .edit_section {
+    transition: height .3s;
+    height: 0px;
+    overflow: hidden;
+    box-shadow: 0 4px 4px 0 $grey;;
+    padding-top: $row_space;;
+
+    .line {
+      padding-left: $left_space;
+      padding-bottom: 22px;
+      i { margin-right: 2%; }
+    }
+
+    .time, .date {
+      margin-right: 8px;
+      width: 162px;
+      padding-left: 5px;;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .comment {
+      width: 445px;
+      height: 120px;
+      margin-bottom: $row_space;
+    }
+
+    .function_group {
+      // add fa icons later
+      width: 100%;
+      height: 60px;
+      .cancel, .apply {
+        border: none;
+        width: 50%;
+        float: left;
+        height: 100%;
+        font-family: Roboto-Regular;
+        font-size: 24px;
+        color: $base_white;
+        text-align: center;
+        line-height: 28px;
+      }
+
+      i { margin-right: 5%; }
+
+      .apply { background-color: $blue; }
+      .cancel {
+        background-color: $base_white;
+        color: $red;
+      }
+    }
+  }
+}
+
+
+
+// Control section hiding and showing following state
+.task.new_task {
+  .preview_task { display: none; }
+  .edit_section {
+    padding-top: 0;
+  }
+}
+
+.task.add_new_task {
+  .add_task { display: none; }
+  .edit_section { height: auto; }
+  .preview_task {
+    background-color: $grey_light;
+    border-bottom: 2px solid $grey;
+
+    & .list_state_group { display: none; }
+  }
+}
+
+.task.task_with_data {
+  .add_task { display: none; }
+  .preview_task {
+    height: 102px;
+  }
+  .edit_section {
+    height: 0;
+    padding-top: 0;
+  }
+}
+
+.task.edit_task {
+  .add_task { display: none; }
+  .preview_task {
+    border-bottom: 2px solid $grey;
+
+    .list_state_group { display: none; }
+  }
+  .edit_section {
+    // height: 519px;
+    height: auto;
+  }
+}
+// END => Control section hiding and showing following state
+
+
+// Control the edit button color following the state
+
+.edit_task .edit_button,
+.add_new_task .edit_button {
+  color: $blue;
+}

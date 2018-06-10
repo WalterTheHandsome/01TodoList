@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import './MainSection.scss'
-import List from '../Components/List.js'
+import Task from '../Components/Task.js'
 import { data } from '../data.js'
 console.log(data)
 console.log(Array.isArray(data))
-// turn data into <List>
-let listItem = data.map((list, idx) =>{
+let taskItem = data.map((task, idx) =>{
   console.log('idx is', idx)
-  console.log('list is', list)
-  return <List key={idx} idx={idx} title={list.title} comment={list.comment}></List>
+  console.log('task is', task)
+  return <Task key={idx} idx={idx} title={task.title} comment={task.comment} timestamp={task.timestamp} />
 })
 
 class MainSection extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      focus: props.focus,
+      data: data
+    }
+  }
   render () {
     return (
       <div className="main_section">
-        <List key="-1" isAdd="true"></List>
-        {listItem}
+        <Task key="-1" isAdd="true"/>
+        {taskItem}
       </div>
     )
   }

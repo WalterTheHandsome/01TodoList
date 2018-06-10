@@ -38,8 +38,42 @@ p {
 }
 
 
+// Colors
 
-// buttons
+// Inputs
+input, textarea {
+  border-radius: 2px;
+  background-color: $base_white;
+  border: none;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  color: #C8C8C8;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  color: #C8C8C8;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  font-family: Roboto-Regular;
+  font-size: 16px;
+  color: #C8C8C8;
+}
+
+
+// Buttons
+button {
+  cursor: pointer;
+}
+button:active,
+button:focus{
+  outline: none;
+}
 
 .fa_checkbox{
   & input{
