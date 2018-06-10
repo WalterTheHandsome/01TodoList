@@ -2,27 +2,61 @@ import React, { Component } from 'react';
 import './MainSection.scss'
 import Task from '../Components/Task.js'
 import { data } from '../data.js'
-console.log(data)
-console.log(Array.isArray(data))
-let taskItem = data.map((task, idx) =>{
-  console.log('idx is', idx)
-  console.log('task is', task)
-  return <Task key={idx} idx={idx} title={task.title} comment={task.comment} timestamp={task.timestamp} />
-})
+
+class TaskList extends Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <ul>
+        <Task key="-1" isAdd="true" updateHandler={this.props.updateHandler} />
+        {this.props.data}
+      </ul>
+    )
+  }
+  // <Task key="-1" isAdd="true" updateHandler={this.props.updateHandler}/>
+}
 
 class MainSection extends Component {
   constructor (props) {
-    super(props)
+    super(props)  // should have props.focus
     this.state = {
-      focus: props.focus,
-      data: data
+      rawData: data,
+      dataTask: data.map((task, idx) =>{
+        // console.log('idx is', idx)
+        // console.log('task is', task)
+        return <Task key={idx} idx={idx} task={task} updateHandler={this.updateHandler.bind(this)}/>
+      })
     }
+
+    let updateHandler = this.updateHandler.bind(this)
   }
+
+  updateHandler(idx, data) {
+    console.log('updateHandler in MainSection ' + idx, data )
+    console.log('this is', this)
+    let newData = this.state.rawData
+    if (idx === undefined) {
+      newData.push(data)
+    } else {
+      newData[idx] = data
+    }
+    this.setState({
+      rawData: newData,
+      dataTask: newData.map((task, idx) =>{
+        return <Task key={idx} idx={idx} task={task} updateHandler={this.updateHandler.bind(this)}/>
+      })
+    })
+  }
+
+
   render () {
+    let updateHandler = this.updateHandler
     return (
       <div className="main_section">
-        <Task key="-1" isAdd="true"/>
-        {taskItem}
+        <Task key="-1" isAdd="true" updateHandler={updateHandler.bind(this)} task={{}} />
+        {this.state.dataTask}
       </div>
     )
   }

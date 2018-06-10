@@ -4,7 +4,10 @@ const STATE_NEW_TASK       = "new_task"
 const STATE_ADD_NEW_TASK   = "add_new_task"
 const STATE_TASK           = "task_with_data"
 const STATE_EDIT_TASK      = "edit_task"
-import moment from 'moment-js'
+import moment from 'moment'
+
+const DATE_FORMAT = 'YYYY/MM/DD'
+const TIME_FORMAT = 'HH:mm'
 
 class FaIcon extends Component {
   constructor(props) {
@@ -45,15 +48,20 @@ class List extends Component {
     this.state = {
       id: "add_chk" + props.idx,
       done: false,
-      status: props.isAdd? STATE_NEW_TASK : STATE_TASK,
+      status: props.isAdd ? STATE_NEW_TASK : STATE_TASK,
       isAdd: props.isAdd,
-      important: false,
-      title: props.title || "Type something here...",
-      comment: props.comment || '',
-      timestamp: props.timestamp || -1,
-      timeThumbnail: moment(props.timestamp).format('MM/dd'),
-      dateHuman: moment(props.timestamp).format('yyyy/mm/dd'),
-      timeHuman: moment(props.timestamp).format('MM/dd')
+      important: props.task.important,
+      title: parseInt(props.idx) > -1 ? "Title_" + (props.idx+1) : "New task",
+      comment: props.task.comment || '',
+      timestamp: props.task.timestamp || -1,
+      timeThumbnail: moment(props.task.timestamp).format('MM/DD'),
+      dateHuman: moment(props.task.timestamp).format(DATE_FORMAT),
+      timeHuman: moment(props.task.timestamp).format(TIME_FORMAT),
+      editing: {
+        dateHuman: moment(props.task.timestamp).format(DATE_FORMAT),
+        timeHuman: moment(props.task.timestamp).format(TIME_FORMAT),
+        comment: props.task.comment
+      }
     }
 
     this.handlCheckBoxClicked = () => {
@@ -74,6 +82,14 @@ class List extends Component {
         this.setState({
           status: STATE_ADD_NEW_TASK
         })
+
+        this.setState({
+          editing: {
+            dateHuman: '',
+            timeHuman: '',
+            comment: ''
+          }
+        })
       }
     }
 
@@ -82,18 +98,73 @@ class List extends Component {
         this.setState({
           status: STATE_EDIT_TASK
         })
+
+        let origin = {
+          dateHuman: this.state.dateHuman,
+          timeHuman: this.state.timeHuman,
+          comment: this.state.comment
+        }
+
+        this.setState({
+          editing: origin
+        })
+
       }
     }
 
+    this.applyData = (t) => {
+      this.props.updateHandler(this.props.idx, {
+        title: this.props.idx,
+        comment: this.state.editing.comment,
+        timestamp: t,
+        important: this.state.important,
+        done: this.state.done
+      })
+
+      this.cancelBoth()
+    }
+
     this.validate = () => {
-      let timeMoment = moment(this.state.timeHuman, 'YYYY-MM-DD')
-      let dateMoment = moment(this.state.dateHuman, 'HH-mm')
-      if (timeMoment.isValid() && dateMoment.isValid()) {
-        // this.applyData()
-        console.log('valid')
+      let timeString = this.state.editing.dateHuman + " " + this.state.editing.timeHuman
+      let timeFormat = DATE_FORMAT + " " + TIME_FORMAT
+      let targetMoment = moment(timeString, timeFormat)
+
+      // console.log(dateMoment.isValid())
+      if (targetMoment.isValid()) {
+        this.applyData(targetMoment.unix())
       } else {
         window.alert('You need to enter valid date or time.')
       }
+    }
+
+    this.updateTime = (e) => {
+      this.setState({
+        editing: {
+          timeHuman: e.target.value,
+          dateHuman: this.state.editing.dateHuman,
+          comment: this.state.editing.comment
+        }
+      })
+    }
+
+    this.updateDate = (e) => {
+      this.setState({
+        editing: {
+          timeHuman: this.state.editing.timeHuman,
+          dateHuman: e.target.value,
+          comment: this.state.editing.comment
+        }
+      })
+    }
+
+    this.updateComment = (e) => {
+      this.setState({
+        editing: {
+          timeHuman: this.state.editing.timeHuman,
+          dateHuman: this.state.editing.dateHuman,
+          comment: e.target.value
+        }
+      })
     }
 
     this.cancelBoth = () => {
@@ -138,15 +209,15 @@ class List extends Component {
               <i className="far fa-calendar-alt"></i>
               Deadline
             </div>
-            <input type="text" className="date" placeholder="yyyy/mm/dd" defaultValue={this.state.dateHuman} />
-            <input type="text" className="time" placeholder="hh:mm" defaultValue={this.state.timeHuman} />
+            <input type="text" className="date" placeholder="yyyy/mm/dd" value={this.state.editing.dateHuman} onChange={this.updateDate}  />
+            <input type="text" className="time" placeholder="hh:mm" value={this.state.editing.timeHuman} onChange={this.updateTime} />
           </div>
           <div className="line">
             <div className="subtitle">
               <i className="far fa-comment-dots"></i>
               Comment
             </div>
-            <textarea name="" id="" cols="30" rows="10" className="comment" defaultValue={this.state.comment}></textarea>
+            <textarea name="" id="" cols="30" rows="10" className="comment" value={this.state.editing.comment} onChange={this.updateComment} />
           </div>
           <div className="function_group">
             <button className="cancel" onClick={this.cancelBoth}>
