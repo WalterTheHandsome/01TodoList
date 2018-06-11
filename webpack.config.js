@@ -32,6 +32,9 @@ module.exports = {
       }
     ]
   },
+  outputs: {
+    path: __dirname + "/docs"
+  }
   plugins: [
     new HtmlWebPackPlugin({
       template: "src/index.html",
@@ -39,7 +42,7 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, "docs"),
     compress: true,
     port: 9000
   }
