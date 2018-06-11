@@ -32,9 +32,9 @@ module.exports = {
       }
     ]
   },
-  outputs: {
-    path: __dirname + "/docs"
-  }
+  output: {
+    path: path.join(__dirname, "docs")
+  },
   plugins: [
     new HtmlWebPackPlugin({
       template: "src/index.html",

@@ -41,6 +41,8 @@ class MainSection extends Component {
 
     console.log('updateHandler in MainSection ' + idx, data )
     console.log('this is', this)
+    console.log('this is', this)
+    
     let newData = this.state.rawData
     if (idx === undefined) {
       newData.push(data)
