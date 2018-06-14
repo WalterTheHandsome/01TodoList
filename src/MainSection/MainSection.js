@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import './MainSection.scss'
 import Task from '../Components/Task.js'
 import { data } from '../data.js'
@@ -7,7 +7,7 @@ class TaskList extends Component {
   constructor(props) {
     super(props)
   }
-  render() {
+  render () {
     return (
       <ul>
         <Task key="-1" isAdd="true" updateHandler={this.props.updateHandler} />
@@ -20,7 +20,7 @@ class TaskList extends Component {
 
 class MainSection extends Component {
   constructor (props) {
-    super(props)  // should have props.focus
+    super(props) // should have props.focus
     this.state = {
       rawData: data,
       dataTask: data.map((task, idx) =>{
@@ -33,7 +33,7 @@ class MainSection extends Component {
     let updateHandler = this.updateHandler.bind(this)
   }
 
-  updateHandler(idx, data) {
+  updateHandler (idx, data) {
 
     // For debug
     // Issue #1, can't update the task
@@ -51,12 +51,11 @@ class MainSection extends Component {
     }
     this.setState({
       rawData: newData,
-      dataTask: newData.map((task, idx) =>{
+      dataTask: newData.map((task, idx) => {
         return <Task key={idx} idx={idx} task={task} updateHandler={this.updateHandler.bind(this)}/>
       })
     })
   }
-
 
   render () {
     let updateHandler = this.updateHandler

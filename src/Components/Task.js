@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import './Task.scss'
+
 const STATE_NEW_TASK       = "new_task"
 const STATE_ADD_NEW_TASK   = "add_new_task"
 const STATE_TASK           = "task_with_data"
