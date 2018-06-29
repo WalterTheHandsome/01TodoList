@@ -96,15 +96,20 @@ class List extends Component {
 
     this.showEdit = () => {
       if (this.state.status === STATE_TASK) {
+        console.log('show Edit', this.props)
         this.setState({
           status: STATE_EDIT_TASK
         })
 
         let origin = {
-          dateHuman: this.state.dateHuman,
-          timeHuman: this.state.timeHuman,
-          comment: this.state.comment
+          dateHuman: moment(this.props.task.timestamp).format(DATE_FORMAT),
+          timeHuman: moment(this.props.task.timestamp).format(TIME_FORMAT),
+          comment: this.props.task.comment
         }
+        console.log('prop.task.timestamp in showEdit', this.props.task.timestamp)
+        console.log('origin in showEdit', origin)
+
+        console.log(moment(this.props.task.timestamp).format(DATE_FORMAT))
 
         this.setState({
           editing: origin
@@ -114,10 +119,11 @@ class List extends Component {
     }
 
     this.applyData = (t) => {
+      console.log('t in applydata', t)
       this.props.updateHandler(this.props.idx, {
         title: this.props.idx,
         comment: this.state.editing.comment,
-        timestamp: t,
+        timestamp: t*1000,
         important: this.state.important,
         done: this.state.done
       })
@@ -127,10 +133,11 @@ class List extends Component {
 
     this.validate = () => {
       let timeString = this.state.editing.dateHuman + " " + this.state.editing.timeHuman
+      console.log('finnal timeString', timeString)
       let timeFormat = DATE_FORMAT + " " + TIME_FORMAT
       let targetMoment = moment(timeString, timeFormat)
+      console.log(targetMoment.unix())
 
-      // console.log(dateMoment.isValid())
       if (targetMoment.isValid()) {
         this.applyData(targetMoment.unix())
       } else {
@@ -175,7 +182,6 @@ class List extends Component {
     }
 
     this.setImportant = () => {
-      console.log('set important')
       this.setState({
         important: !this.state.important
       })

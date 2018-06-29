@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import './MainSection.scss'
 import Task from '../Components/Task.js'
 import { data } from '../data.js'
-
+let dataNative = deepClone(data)
+function deepClone(from) {
+  return JSON.parse(JSON.stringify(from))
+}
 class TaskList extends Component {
   constructor(props) {
     super(props)
@@ -22,8 +25,8 @@ class MainSection extends Component {
   constructor (props) {
     super(props) // should have props.focus
     this.state = {
-      rawData: data,
-      dataTask: data.map((task, idx) =>{
+      rawData: dataNative,
+      dataTask: dataNative.map((task, idx) =>{
         // console.log('idx is', idx)
         // console.log('task is', task)
         return <Task key={idx} idx={idx} task={task} updateHandler={this.updateHandler.bind(this)}/>
@@ -39,16 +42,18 @@ class MainSection extends Component {
     // Issue #1, can't update the task
     // Issue #2, While add task, time is wrong
 
-    console.log('updateHandler in MainSection ' + idx, data )
-    console.log('this is', this)
-    console.log('this is', this)
+    // console.log('updateHandler in MainSection ' + idx, data )
+    // console.log('this is', this)
+    // console.log('this is', this)
+    console.log('receive data in Main', data)
     
-    let newData = this.state.rawData
+    let newData = deepClone(this.state.rawData)
     if (idx === undefined) {
       newData.push(data)
     } else {
       newData[idx] = data
     }
+    console.log('final newData', newData)
     this.setState({
       rawData: newData,
       dataTask: newData.map((task, idx) => {
@@ -59,6 +64,8 @@ class MainSection extends Component {
 
   render () {
     let updateHandler = this.updateHandler
+    console.log('data ins MainSection', this.state.rawData)
+    console.log('dataTask in ', this.state.dataTask)
     return (
       <div className="main_section">
         <Task key="-1" isAdd="true" updateHandler={updateHandler.bind(this)} task={{}} />
